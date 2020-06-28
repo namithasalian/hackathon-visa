@@ -28,8 +28,8 @@ def search_merchants():
                         category_code_mappings[request_body['category']]
                         ],
                     "merchantCountryCode": "840",
-                    "latitude": "37.363922",
-                    "longitude": "-121.929163",
+                    "latitude": request_body['latitude'],
+                    "longitude": request_body['longitude'],
                     "distance": "99",
                     "distanceUnit": "M"
                       },
@@ -65,3 +65,4 @@ def search_merchants():
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port="80")
+    #app.run()

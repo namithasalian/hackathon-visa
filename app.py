@@ -28,7 +28,7 @@ def search_merchants():
             "merchantCountryCode": "840",
             "latitude": request_body['latitude'],
             "longitude": request_body['longitude'],
-            "distance": "99",
+            "distance": request_body['distance'],
             "distanceUnit": "M"
         },
         "responseAttrList": [
@@ -284,8 +284,8 @@ def financial_struggle():
 
 
 if __name__ == '__main__':
-    app.run(host="0.0.0.0", port="80")
-    #app.run()
+    #app.run(host="0.0.0.0", port="80")
+    app.run()
 
 
 

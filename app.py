@@ -9,7 +9,6 @@ app = Flask(__name__)
 def hello_world():
     return 'Hello World!'
 
-
 @app.route('/searchMerchants', methods=["POST"])
 def search_merchants():
     request_body = request.json
@@ -127,6 +126,7 @@ def funds_transfer():
 
     headers = {
         'Content-Type': 'application/json',
+        'Accept': 'application/json',
         'Authorization': 'Basic Sk9IUkUyQTNHTUtHWjNLN0xPMlMyMWNCWlZlNjhHenJlencyeTF2eVpXdzIzVnNfNDpXMGUyNGZ4SVBk'
     }
     r = requests.post(url,
@@ -137,8 +137,10 @@ def funds_transfer():
     # print(r.content())
     response = r.text.encode('utf8')
     print(response)
-   # if response.con
-    # tie the transaction identifier
+
+    if r.status_code!= 200:
+        return {"Message":"Error"}
+
 
     payload = {
                "acquirerCountryCode": "840",
@@ -176,7 +178,7 @@ def funds_transfer():
                "sourceOfFundsCode": "05",
                "systemsTraceAuditNumber": "451018",
                "transactionCurrencyCode": request_body['currency'],
-               "transactionIdentifier": "234386193337665",
+               "transactionIdentifier": "381228649430015",
                "settlementServiceIndicator": "9",
                "colombiaNationalServiceData": {
                    "countryCodeNationalService": "170",
@@ -196,6 +198,7 @@ def funds_transfer():
 
     headers = {
         'Content-Type': 'application/json',
+        'Accept': 'application/json',
         'Authorization': 'Basic Sk9IUkUyQTNHTUtHWjNLN0xPMlMyMWNCWlZlNjhHenJlencyeTF2eVpXdzIzVnNfNDpXMGUyNGZ4SVBk'
     }
     r = requests.post(url,

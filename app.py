@@ -14,7 +14,7 @@ def hello_world():
 def search_merchants():
     request_body = request.json
 
-    category_code_mappings = {"FAST_FOOD_RESTAURANTS": 5814}
+    #category_code_mappings = {"FAST_FOOD_RESTAURANTS": 5814}
     print(request_body)
 
     payload = {"header": {
@@ -24,7 +24,7 @@ def search_merchants():
     },
         "searchAttrList": {
             "merchantCategoryCode": [
-                category_code_mappings[request_body['category']]
+                request_body['category'],
             ],
             "merchantCountryCode": "840",
             "latitude": request_body['latitude'],
@@ -86,7 +86,7 @@ def funds_transfer():
         },
         "cavv": "0700100038238906000013405823891061668252",
         "foreignExchangeFeeTransaction": "11.99",
-        "localTransactionDateTime": "2020-06-28T21:27:53",
+        "localTransactionDateTime": request_body["localTransactionDateTime"],
         "retrievalReferenceNumber": "330000550000",
         "senderCardExpiryDate": request_body['cardExpiryDate'],
         "senderCurrencyCode": request_body['currency'],
@@ -156,7 +156,7 @@ def funds_transfer():
                    "name": "Visa Inc. USA-Foster City",
                    "terminalId": "TID-9999"
                },
-               "localTransactionDateTime": "2020-06-26T21:58:04",
+               "localTransactionDateTime": request_body["localTransactionDateTime"],
               # "merchantCategoryCode": "6012",
                "pointOfServiceData": {
                    "motoECIIndicator": "0",
@@ -193,6 +193,77 @@ def funds_transfer():
                }
                }
     url = "https://sandbox.api.visa.com/visadirect/fundstransfer/v1/pushfundstransactions"
+
+    headers = {
+        'Content-Type': 'application/json',
+        'Authorization': 'Basic Sk9IUkUyQTNHTUtHWjNLN0xPMlMyMWNCWlZlNjhHenJlencyeTF2eVpXdzIzVnNfNDpXMGUyNGZ4SVBk'
+    }
+    r = requests.post(url,
+                      cert=('Certificates/cert.pem', 'Certificates/privateKey.pem'),
+                      headers=headers,
+                      auth=("5COPOJAN7B63B74JMML121Z4flu5-fyzcdQ0HNwFM5zBxlwtc", "zhrd4VO3R4Owe7"),
+                      data=json.dumps(payload))
+    # print(r.content())
+    response = r.text.encode('utf8')
+    print(response)
+    return response
+
+
+@app.route('/financialStruggle', methods=["POST"])
+def financial_struggle():
+
+    request_body = request.json
+    print(request_body)
+
+    payload =  {
+        "requestHeader": {
+        "messageDateTime": "2020-06-26T21:21:03.327Z",
+        "requestMessageId": "6da60e1b8b024532a2e0eacb1af58581"
+        },
+        "requestData": {
+        "naicsCodeList": [
+        ""
+        ],
+        "merchantCategoryCodeList": [
+        request_body['merchantCategoryCodeList']
+        ],
+        "merchantCategoryGroupsCodeList": [
+        ""
+        ],
+        "postalCodeList": [
+            request_body['postalCodeList']
+        ],
+        "msaList": [
+            request_body['msaList']
+        ],
+        "countrySubdivisionList": [
+        ""
+        ],
+        "merchantCountry": "840",
+        "monthList": [
+            request_body['monthList']
+        ],
+        "accountFundingSourceList": [
+        "ALl"
+        ],
+        "eciIndicatorList": [
+        "All"
+        ],
+        "platformIDList": [
+        "All"
+        ],
+        "posEntryModeList": [
+        "All"
+        ],
+        "cardPresentIndicator": "CARDPRESENT",
+        "groupList": [
+        "STANDARD"
+
+        ]
+        }
+        }
+
+    url = "https://sandbox.api.visa.com/merchantmeasurement/v1/merchantbenchmark"
 
     headers = {
         'Content-Type': 'application/json',

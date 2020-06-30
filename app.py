@@ -22,9 +22,9 @@ def search_merchants():
         "startIndex": "0"
     },
         "searchAttrList": {
-            "merchantCategoryCode": [
+            "merchantCategoryCode":
                 request_body['category'],
-            ],
+
             "merchantCountryCode": "840",
             "latitude": request_body['latitude'],
             "longitude": request_body['longitude'],

@@ -13,7 +13,6 @@ def hello_world():
 def search_merchants():
     request_body = request.json
 
-    #category_code_mappings = {"FAST_FOOD_RESTAURANTS": 5814}
     print(request_body)
 
     payload = {"header": {
@@ -38,7 +37,6 @@ def search_merchants():
             "wildCard": [
                 "merchantName"
             ],
-            "maxRecords": "5",
             "matchIndicators": "true",
             "matchScore": "true"
         }

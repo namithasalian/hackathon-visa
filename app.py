@@ -66,60 +66,60 @@ def funds_transfer():
     print(request_body)
 
 
-    payload = {
-        "acquirerCountryCode": "840",
-        "acquiringBin": "408999",
-        "amount": request_body['amount'],
-        "businessApplicationId": "AA",
-        "cardAcceptor": {
-            "address": {
+    payload =  {
+                "acquirerCountryCode": "840",
+                "acquiringBin": "408999",
+                "amount": request_body['amount'],
+                "businessApplicationId": "AA",
+                "cardAcceptor": {
+                "address": {
                 "country": "USA",
                 "county": "081",
                 "state": "CA",
                 "zipCode": "94404"
-            },
-            "idCode": "ABCD1234ABCD123",
-            "name": "Visa Inc. USA-Foster City",
-            "terminalId": "ABCD1234"
-        },
-        "cavv": "0700100038238906000013405823891061668252",
-        "foreignExchangeFeeTransaction": "11.99",
-        "localTransactionDateTime": request_body["localTransactionDateTime"],
-        "retrievalReferenceNumber": "330000550000",
-        "senderCardExpiryDate": request_body['cardExpiryDate'],
-        "senderCurrencyCode": request_body['currency'],
-        "senderPrimaryAccountNumber": request_body['cardNumber'],
-        "surcharge": "11.99",
-        "systemsTraceAuditNumber": "451001",
-        "nationalReimbursementFee": "11.22",
-        "cpsAuthorizationCharacteristicsIndicator": "Y",
-        "addressVerificationData": {
-            "street": "XYZ St",
-            "postalCode": "12345"
-        },
-        "settlementServiceIndicator": "9",
-        "colombiaNationalServiceData": {
-            "countryCodeNationalService": "170",
-            "nationalReimbursementFee": "20.00",
-            "nationalNetMiscAmountType": "A",
-            "nationalNetReimbursementFeeBaseAmount": "20.00",
-            "nationalNetMiscAmount": "10.00",
-            "addValueTaxReturn": "10.00",
-            "taxAmountConsumption": "10.00",
-            "addValueTaxAmount": "10.00",
-            "costTransactionIndicator": "0",
-            "emvTransactionIndicator": "1",
-            "nationalChargebackReason": "11"
-        },
-        "riskAssessmentData": {
-            "delegatedAuthenticationIndicator": True,
-            "lowValueExemptionIndicator": True,
-            "traExemptionIndicator": True,
-            "trustedMerchantExemptionIndicator": True,
-            "scpExemptionIndicator": True
-        },
-        "visaMerchantIdentifier": request_body['merchantId']
-    }
+                },
+                "idCode": "ABCD1234ABCD123",
+                "name": "Visa Inc. USA-Foster City",
+                "terminalId": "ABCD1234"
+                },
+                "cavv": "0700100038238906000013405823891061668252",
+                "foreignExchangeFeeTransaction": "11.99",
+                "localTransactionDateTime": "2020-07-01T21:27:53",
+                "retrievalReferenceNumber": "330000550000",
+                "senderCardExpiryDate": request_body['cardExpiryDate'],
+                "senderCurrencyCode": request_body['currency'],
+                "senderPrimaryAccountNumber": request_body['cardNumber'],
+                "surcharge": "11.99",
+                "systemsTraceAuditNumber": "451001",
+                "nationalReimbursementFee": "11.22",
+                "cpsAuthorizationCharacteristicsIndicator": "Y",
+                "addressVerificationData": {
+                "street": "XYZ St",
+                "postalCode": "12345"
+                },
+                "settlementServiceIndicator": "9",
+                "colombiaNationalServiceData": {
+                "countryCodeNationalService": "170",
+                "nationalReimbursementFee": "20.00",
+                "nationalNetMiscAmountType": "A",
+                "nationalNetReimbursementFeeBaseAmount": "20.00",
+                "nationalNetMiscAmount": "10.00",
+                "addValueTaxReturn": "10.00",
+                "taxAmountConsumption": "10.00",
+                "addValueTaxAmount": "10.00",
+                "costTransactionIndicator": "0",
+                "emvTransactionIndicator": "1",
+                "nationalChargebackReason": "11"
+                },
+                "riskAssessmentData": {
+                "delegatedAuthenticationIndicator": True,
+                "lowValueExemptionIndicator": True,
+                "traExemptionIndicator": True,
+                "trustedMerchantExemptionIndicator": True,
+                "scpExemptionIndicator": True
+                },
+                "visaMerchantIdentifier": request_body['merchantId']
+                }
 
     url = "https://sandbox.api.visa.com/visadirect/fundstransfer/v1/pullfundstransactions"
 
@@ -142,6 +142,9 @@ def funds_transfer():
 
     print(r.status_code)
     res = json.loads(response)
+
+    if res['actionCode'] != "00":
+        return {"Message": "Pull Operation failed"}
 
     payload = {
                "acquirerCountryCode": "840",
@@ -166,8 +169,9 @@ def funds_transfer():
                    "panEntryMode": "90",
                    "posConditionCode": "00"
                },
-               "recipientName": "rohan",
-               "recipientPrimaryAccountNumber": "4957030420210496",
+               "recipientName": "AKHILA",
+               "recipientPrimaryAccountNumber": "4957030420210454",
+               "recipientCardExpiryDate": "2021-10",
                "retrievalReferenceNumber": "412770451018",
                "senderAccountNumber": request_body['cardNumber'],
                "sourceOfFundsCode": "05",
@@ -282,7 +286,7 @@ if __name__ == '__main__':
 
     #app.run(host="0.0.0.0", port="443", ssl_context='adhoc')
     app.run(host="0.0.0.0", port="80")
-    #app.run(ssl_context='adhoc')
+    #app.run()
 
 
 

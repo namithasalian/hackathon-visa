@@ -18,7 +18,7 @@ def search_merchants():
     payload = {"header": {
         "messageDateTime": "2020-06-20T18:14:39.903",
         "requestMessageId": "Request_001",
-        "startIndex": "0"
+        "startIndex": request_body['startIndex']
     },
         "searchAttrList": {
             "merchantCategoryCode":
@@ -28,7 +28,7 @@ def search_merchants():
             "latitude": request_body['latitude'],
             "longitude": request_body['longitude'],
             "distance": request_body['distance'],
-            "distanceUnit": "M"
+            "distanceUnit": request_body['distanceUnit']
         },
         "responseAttrList": [
             "GNLOCATOR"
@@ -37,7 +37,7 @@ def search_merchants():
             "wildCard": [
                 "merchantName"
             ],
-            "maxRecords": "100",
+            "maxRecords": "6",
             "matchIndicators": "true",
             "matchScore": "true"
         }
@@ -283,8 +283,8 @@ def financial_struggle():
 
 
 if __name__ == '__main__':
-    app.run(host="0.0.0.0", port="80")
-    #app.run()
+    #app.run(host="0.0.0.0", port="80")
+    app.run()
 
 
 

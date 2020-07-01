@@ -37,6 +37,7 @@ def search_merchants():
             "wildCard": [
                 "merchantName"
             ],
+            "maxRecords": "100",
             "matchIndicators": "true",
             "matchScore": "true"
         }

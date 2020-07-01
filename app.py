@@ -133,13 +133,15 @@ def funds_transfer():
                       headers=headers,
                       auth=("5COPOJAN7B63B74JMML121Z4flu5-fyzcdQ0HNwFM5zBxlwtc", "zhrd4VO3R4Owe7"),
                       data=json.dumps(payload))
-    # print(r.content())
+
     response = r.text.encode('utf8')
     print(response)
 
-    if r.status_code!= 200:
-        return {"Message":"Error"}
+    if r.status_code != 200:
+        return {"Message": "Error"}
 
+    print(r.status_code)
+    res = json.loads(response)
 
     payload = {
                "acquirerCountryCode": "840",
@@ -168,16 +170,10 @@ def funds_transfer():
                "recipientPrimaryAccountNumber": "4957030420210496",
                "retrievalReferenceNumber": "412770451018",
                "senderAccountNumber": request_body['cardNumber'],
-           #   "senderAddress": "901 Metro Center Blvd",
-            #   "senderCity": "Foster City",
-             #  "senderCountryCode": "124",
-              # "senderName": "Mohammed Qasim",
-              # "senderReference": "",
-             #  "senderStateCode": "CA",
                "sourceOfFundsCode": "05",
                "systemsTraceAuditNumber": "451018",
                "transactionCurrencyCode": request_body['currency'],
-               "transactionIdentifier": "381228649430015",
+               "transactionIdentifier": res['transactionIdentifier'],
                "settlementServiceIndicator": "9",
                "colombiaNationalServiceData": {
                    "countryCodeNationalService": "170",
@@ -205,7 +201,7 @@ def funds_transfer():
                       headers=headers,
                       auth=("5COPOJAN7B63B74JMML121Z4flu5-fyzcdQ0HNwFM5zBxlwtc", "zhrd4VO3R4Owe7"),
                       data=json.dumps(payload))
-    # print(r.content())
+
     response = r.text.encode('utf8')
     print(response)
     return response
@@ -276,7 +272,7 @@ def financial_struggle():
                       headers=headers,
                       auth=("5COPOJAN7B63B74JMML121Z4flu5-fyzcdQ0HNwFM5zBxlwtc", "zhrd4VO3R4Owe7"),
                       data=json.dumps(payload))
-    # print(r.content())
+
     response = r.text.encode('utf8')
     print(response)
     return response
